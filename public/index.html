@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>FIO-Incident Match</title>
+</head>
+<body>
+  <div id="app">
+    <div v-if="loading">Loading...</div>
+    <div v-else>
+      
+      <div class="matches">
+        <h2 class="page-number">
+          Page {{ page + 1}} 
+          <span class="page-number-details">
+            ({{ (page * 10) + 1 }} - {{ (page + 1 ) * 10 }})
+          </span>
+        </h2>
+        <div v-for="match in pageMatches" class="match">
+          <p class="match-header">
+            <span><b>{{ match.incident.OFFENSE_DESCRIPTION }}</b> ({{ match.incident.STREET }})</span>
+            <span class="match-ids">Incident Number: {{ match.incident.INCIDENT_NUMBER }} | FIO Number: {{ match.fio.fc_num }}</span>
+          </p>
+          <p class="match-contact-reason">{{ match.fio.contact_reason }}</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button @click="prev" :disabled="page === 0">Previous</button>
+        <button @click="next" :disabled="page === maxPage">Next</button>
+      </div>
+
+      <div class="details">
+        <p>Total matches: {{ matches.length }}</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
